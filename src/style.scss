@@ -1,0 +1,795 @@
+$lightGrey: #bfbfbf;
+$medGrey: #7d7d7d;
+$darkGrey: #6c6c6c;
+$darkOrange: #af5a00;
+$medOrange: #e07300;
+$orange: #ff890d;
+$blue: #0f87af;
+$lightBlue: #3196b8;
+$darkBlue: #03536d;
+$lightOrange: rgb(255, 161, 61);
+$transparentOrange: rgba(255, 161, 61, 0.3);
+$box-shadow: 5px 5px 5px 0px rgb(144, 144, 144);
+$box-shadow2: 10px 0 10px rgb(88, 88, 88), -10px 0 10px rgb(88, 88, 88);
+$box-shadow3: 0 4px 0 rgba(0, 0, 0, 0.25),
+    0 4px 0 $lightGrey,
+    0 4px 6px rgba(0, 0, 0, 0.45);
+$time-shadow: 0 3px 3px rgb(88, 88, 89);
+$button-shaddow: 3px 3px 3px 0px rgb(144, 144, 144);
+$blueborder: 3px solid $darkBlue;
+$orangeborder: 3px solid $orange;
+$whiteborder: 3px solid #fff;
+$border: 3px solid $darkGrey;
+$whitebutton: linear-gradient(#fff, #fff, rgb(194, 194, 194));
+@mixin chartButton {
+    border: none;
+    text-transform: uppercase;
+    margin: 5px;
+    border-radius: 5px;
+    font-size: 16px;
+    background-color: #fff;
+    background-image: $whitebutton;
+    color: $darkBlue;
+    font-weight: 700;
+    box-shadow: $box-shadow3;
+    &:hover {
+        color: rgb(62, 62, 62);
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.45);
+        transform: translateY(4px);
+    }
+}
+@keyframes fade {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+@mixin text {
+    font-size: 19px;
+    color: $darkOrange;
+}
+@mixin roundbtn {
+    height: 27px;
+    width: 27px;
+    border-radius: 50%;
+    background-color: $darkBlue;
+    vertical-align: middle;
+    border: none;
+    font-size: 27px;
+    line-height: 27px;
+    border: none;
+    padding: 0;
+    margin: 3px;
+    color: #fff;
+    box-shadow: $button-shaddow;
+    &:hover {
+        background-color: #fff;
+        color: $medOrange;
+    }
+}
+@mixin btn-21px {
+    line-height: 21px;
+    font-size: 21px;
+    height: 21px;
+    width: 21px;
+}
+@mixin chartRow {
+    width: 100%;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+* {
+    scroll-behavior: smooth;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    box-sizing: border-box;
+    //border: 1px solid red;
+}
+button {
+    cursor: pointer;
+    transition-duration: 0.5s;
+    &:active {
+        box-shadow: 0 0 2px $darkGrey !important;
+        transform: translateY(2px);
+    }
+}
+ul {
+    list-style: none;
+}
+html {
+    //stop the layout shift due to the scrollbar
+    margin-left: calc(100vw - 100%);
+}
+body {
+    margin-left: auto;
+    margin-right: auto;
+    background-color: $medGrey;
+    font-size: 19px;
+}
+::-webkit-scrollbar {
+    width: 15px;
+    //background-color: $medGrey;
+    //outline: 1px solid $darkGrey;
+}
+::-webkit-scrollbar-track {
+    border-radius: 10px;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.3);
+    background-color: $darkGrey;
+}
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-image: linear-gradient($darkGrey, $medGrey, $darkGrey);
+    border: 2px solid $medGrey;
+}
+.footerSlide::-webkit-scrollbar-thumb {
+    background-color: $lightGrey;
+    border: none;
+    background-image: none;
+}
+.sr-only {
+    border: 0 !important;
+    clip: rect(1px, 1px, 1px, 1px) !important;
+    -webkit-clip-path: inset(50%) !important;
+    clip-path: inset(50%) !important;
+    height: 1px !important;
+    overflow: hidden !important;
+    margin: -1px !important;
+    padding: 0 !important;
+    position: absolute !important;
+    width: 1px !important;
+    white-space: nowrap !important;
+}
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    margin-left: auto;
+    margin-right: auto;
+    width: 90vw;
+    max-width: 900px;
+    min-height: 100vh;
+    background-color: $lightGrey;
+    color: black;
+    box-shadow: $box-shadow2;
+    .header {
+        background-image: linear-gradient($lightOrange, $medOrange, $darkOrange);
+        padding-top: 25px;
+        margin-bottom: 13px;
+        svg {
+            bottom: 0;
+            width: 100%;
+            height: 100px;
+            margin-bottom: -5px;
+        }
+    }
+    h1 {
+        margin-left: auto;
+        margin-right: auto;
+        width: 100%;
+        text-align: center;
+        color: #fff;
+        font-size: 29px;
+        text-shadow: 1px 1px 0 $darkGrey,
+            2px 2px 0 $darkGrey,
+            3px 3px 0 $darkGrey,
+            4px 4px 0 $darkGrey,
+            5px 5px 0 $darkGrey;
+    }
+    .messageCentre {
+        font-size: 19px;
+        line-height: 21px;
+        height: 21px;
+        text-align: center;
+        margin-top: 7px;
+        color: $darkBlue;
+        font-weight: bold;
+    }
+    //new entry button in .wrapper on App.js
+    .addNew {
+        width: 35%;
+        max-width: 110px;
+        background-image: linear-gradient($lightBlue, $darkBlue, $darkBlue, $darkBlue);
+        color: white;
+        padding: 3px 2px;
+        margin: 3px auto;
+        font-size: 16px;
+        text-transform: uppercase;
+        border-radius: 5px;
+        box-shadow: $box-shadow3;
+        border: none;
+        font-weight: 500;
+        &:hover {
+            color: #fff;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.45);
+            transform: translateY(4px);
+        }
+    }
+    //notes button
+    .fuelBtn {
+        margin: 5px auto;
+        border: none;
+        text-decoration: underline;
+        margin-bottom: 7px;
+        background-color: $lightGrey;
+        font-weight: bold;
+        font-size: 17px;
+        padding: 3px 5px;
+        border-radius: 5px;
+        color: $darkBlue;
+        &:hover {
+            letter-spacing: 5px;
+        }
+        &:focus {
+            outline: 1px solid $darkBlue;
+        }
+    }
+    //notes for race day in .wrapper on App.js
+    .fuel-guide,
+    .alert {
+        display: flex;
+        flex-direction: column;
+        width: 80%;
+        margin: auto;
+        font-size: 17px;
+        .ul-row {
+            display: flex;
+            flex-direction: column;
+            ul {
+                margin: auto;
+            }
+        }
+        p {
+            text-align: center;
+            padding-top: 7px;
+        }
+        h2 {
+            text-align: center;
+            margin: 5px 0;
+            font-size: 19px;
+        }
+        h3 {
+            text-align: center;
+            margin: 5px 0;
+            font-size: 18px;
+        }
+        ul.cir {
+            list-style-type: circle;
+            padding-left: 35px;
+            background-color: $transparentOrange;
+            border-radius: 5px;
+        }
+        li {
+            //line-height: 23px;
+            font-size: 16px;
+        }
+    }
+    .raceSplits {
+        width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+        background-color: inherit;
+        //div holding individual hours, large screens only
+        .splitbtns {
+            display: none;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            margin-left: auto;
+            margin-right: auto;
+            width: 95%;
+            height: auto;
+            //hour buttons in Morning.js, Afternoon.js, Evening.js
+            .tab {
+                line-height: 23px;
+                border: 2px solid $darkBlue;
+                width: 19%;
+                max-width: 70px;
+                height: auto;
+                margin: 6px 5px;
+                color: white;
+                font-size: 19px;
+                background-color: $darkGrey;
+                background-image: linear-gradient($darkBlue, $darkGrey);
+                border-radius: 5px;
+                box-shadow: 0 4px 0 rgba(0, 0, 0, 0.25),
+                    0 4px 0 $darkBlue,
+                    0 4px 6px rgba(0, 0, 0, 0.45);
+                &:focus {
+                    background-color: $orange;
+                    background-image: linear-gradient($lightOrange, $lightGrey);
+                    color: #000;
+                    border: 2px solid $lightGrey;
+                    outline: 1px solid white;
+                }
+                &:hover {
+                    background-color: $blue;
+                    //border: $blueborder;
+                    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.45);
+                    transform: translateY(4px);
+                }
+            }
+            .plus {
+                @include roundbtn;
+            }
+        }
+        //small screen, div that holds splits
+        .sm-splitbtns {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-left: auto;
+            margin-right: auto;
+            width: 70%;
+            .split {
+                background-color: $medOrange;
+                background-image: linear-gradient($medOrange, $darkOrange);
+                width: 80%;
+                padding: 2px 8px;
+                color: #fff;
+                font-size: 19px;
+                border-radius: 5px;
+                margin: 3px 0 7px 0;
+                border: none;
+                box-shadow: $box-shadow;
+                &:hover {
+                    background-color: #fff;
+                    color: $medOrange;
+                }
+                &:focus {
+                    color: #fff;
+
+                }
+            }
+        }
+    }
+    .footer {
+        margin: auto 0 0 0;
+        color: whitesmoke;
+        background-color: $darkGrey;
+        padding-bottom: 15px;
+        font-size: 15px;
+        line-height: 17px;
+        border: none;
+        .footericons {
+            width: 17px;
+            height: 17px;
+            margin: 0 2px -2px 2px;
+            color: #fff;
+            background-color: $darkGrey;
+        }
+        h2 {
+            color: #fff;
+            text-align: center;
+            margin: 0 15px 15px 15px;
+            text-shadow: -2px -2px $darkBlue;
+        }
+        .last {
+            text-align: center;
+        }
+        svg {
+            transition: all 500ms ease;
+            background-color: $lightGrey;
+            width: 100%;
+            height: 70px;
+            border: none;
+        }
+        h2~p {
+            margin: 5px 23px;
+        }
+        a,
+        label,
+        button,
+        a:visited {
+            font-weight: bold;
+            text-decoration: none;
+            color: #fff;
+            cursor: pointer;
+            &:hover {
+                text-decoration: underline;
+            }
+            &:active {
+                color: #fff;
+            }
+        }
+
+        button {
+            background-color: $darkGrey;
+            border: none;
+            font-size: inherit;
+        }
+
+        #toggle {
+            appearance: none;
+            display: none;
+        }
+        input {
+            margin-bottom: -10px;
+        }
+
+        .footerSlide {
+            margin-top: 0;
+            width: 100%;
+            background-color: $darkGrey;
+            transition: height .3s ease;
+            height: 0;
+            overflow: hidden;
+            p {
+                margin: 23px;
+            }
+            >p {
+                margin-top: 5px;
+            }
+            p:last-child {
+                margin-bottom: 5px;
+            }
+        }
+        input:checked~.footerSlide {
+            height: 150px;
+            overflow-y: visible;
+        }
+    }
+    //general chart that holds logs and Edit.js
+    .chart {
+        display: flex;
+        flex-direction: column;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 7px;
+        width: 95%;
+        max-width: 680px;
+        animation: fade 0.5s linear forwards;
+        fieldset {
+            border: none;
+        }
+        select {
+            border: none;
+            margin-right: 5px;
+            margin-left: 5px;
+            background-color: $transparentOrange;
+        }
+        //style all the divs in chart, no need for class
+        >div {
+            border-radius: 0 0 5px 5px;
+            width: 100%;
+            flex-direction: column;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        //row in Chart.js, drops in AddFuel.js
+        .row,
+        .drops {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            &:last-child {
+                padding-bottom: 7px;
+            }
+            ::-webkit-scrollbar-thumb {
+                border-radius: 10px;
+                background-image: none;
+                background-color: $darkOrange;
+                border: none;
+            }
+        }
+        .drops {
+            margin-top: 5px;
+        }
+        .block {
+            display: flex;
+            flex-direction: column;
+            //targets save and cancel buttons on Edit.js
+            &.buttons {
+                flex-direction: row;
+            }
+        }
+        h2 {
+            text-align: center;
+            font-size: 17px;
+        }
+        ul {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        //lists for removing food on Edit.js
+        li {
+            line-height: 33px;
+            button {
+                @include roundbtn;
+                font-size: 21px;
+                line-height: 21px;
+                width: 21px;
+                height: 21px;
+            }
+        }
+        //style the food and serving lists on Edit.js
+        .food-edit {
+            display: flex;
+            flex-direction: column;
+            width: 50%;
+            >h2 {
+                background-color: $lightOrange;
+            }
+            ul {
+                //border: none;
+                flex-direction: column;
+                width: 100%;
+                margin: 0 auto;
+                li {
+                    text-align: center;
+                }
+                li:nth-of-type(2n-2) {
+                    background-color: $transparentOrange;
+                }
+            }
+        }
+        .sm-AddFuel {
+            font-size: 17px;
+        }
+        //save button in AddFuel.js
+        .last {
+            display: flex;
+            flex-direction: column;
+            margin-top: 5px;
+            >button {
+                @include chartButton;
+                padding: 2px 7px;
+                margin: auto;
+            }
+        }
+    }
+    .chartmobile,
+    .edit {
+        max-width: 550px;
+        display: flex;
+        justify-content: center;
+        border-radius: 0 0 5px 5px;
+        margin-bottom: 13px;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.45);
+        p {
+            font-size: 15px;
+        }
+        //contains the minus buttons for water and tailwind on Edit.js
+        span {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            button {
+                @include roundbtn;
+                height: 21px;
+                width: 21px;
+                font-size: 21px;
+                line-height: 21px;
+            }
+        }
+        //holds the time on Edit.js and mobile Chart.js
+        .top-row {
+            width: 100%;
+            margin-top: 0;
+            text-align: center;
+            background-color: $lightOrange;
+            box-shadow: $time-shadow;
+        }
+        .row {
+            display: flex;
+            font-size: 17px;
+            .block {
+                justify-content: center;
+                align-items: center;
+                width: 30%;
+                height: auto;
+                margin: 2px;
+                //targets the save and cancel buttons in Edit.js
+                >button {
+                    @include chartButton;
+                    padding: 3px 7px;
+                    &:hover {
+                        color: rgb(62, 62, 62);
+                        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.45);
+                        transform: translateY(4px);
+                    }
+                    &:focus {
+                        color: #fff;
+                        background-image: linear-gradient($lightBlue, $darkBlue);
+                    }
+                }
+                h2 {
+                    width: 100%;
+                }
+            }
+            //on Chart.js
+            //can't be nested in block because it needs to override some of the styles
+            .block-food {
+                width: 100%;
+                height: auto;
+                display: flex;
+                flex-direction: column;
+                h2 {
+                    background-color: $transparentOrange;
+                }
+                ul {
+                    margin-top: -5px;
+                    border-bottom: 2px solid $transparentOrange;
+                }
+                li {
+                    display: flex;
+                    flex-direction: row;
+                    height: auto;
+                    margin: 2px 3px;
+                    line-height: 27px;
+                    button {
+                        @include roundbtn;
+                        @include btn-21px;
+                    }
+                }
+            }
+        }
+
+    }
+    .lg-AddFuel {
+        display: none;
+        font-size: 16px;
+        select {
+            font-size: 16px;
+        }
+        .block {
+            margin-left: 5px;
+            margin-right: 7px;
+        }
+    }
+    .chartdesktop {
+        display: none;
+        max-width: 880px;
+        margin-top: 5px;
+        margin-bottom: 17px;
+        border-radius: 0 0 5px 5px;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.45);
+        .row {
+            &:nth-of-type(1) {
+                background-color: $lightOrange;
+                box-shadow: $time-shadow;
+            }
+            &:nth-of-type(3) {
+                margin-bottom: 7px;
+                margin-top: -2px;
+            }
+            .block {
+                margin: 5px;
+                width: 20%;
+                button {
+                    @include chartButton;
+                    padding: 2px;
+                    &:active {
+                        color: $darkBlue;
+                    }
+                }
+                .time {
+                    background-color: $lightBlue;
+                    color: #000;
+                    font-size: 16px;
+                    line-height: 16px;
+                    margin-top: 2px;
+                    padding: 3px;
+                    border-radius: 5px;
+                    width: 100%;
+                }
+                h2 {
+                    text-align: center;
+                }
+                p {
+                    font-size: 17px;
+                    text-align: center;
+                }
+            }
+            .block-food {
+                width: 100%;
+                margin-top: 11px;
+                margin-bottom: 7px;
+                border-bottom: 2px solid $medOrange;
+                ul {
+                    font-size: 15px;
+                    width: 90%;
+                    margin-left: auto;
+                    margin-right: auto;
+                    align-items: center;
+                }
+                li {
+                    margin: 1px 5px;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (prefers-reduced-motion: reduce) {
+    body {
+        animation: none;
+    }
+}
+@media screen and (min-width: 450px) {
+    .wrapper {
+        .fuel-guide {
+            .ul-row {
+                flex-direction: row;
+            }
+        }
+        .row {
+            p,
+            li {
+                font-size: 17px;
+            }
+        }
+        .raceSplits {
+            .sm-splitbtns {
+                display: none;
+            }
+            .splitbtns {
+                display: flex;
+                .tab {
+                    height: auto;
+                    max-width: 70px;
+                }
+            }
+        }
+        .chart {
+            margin-top: 0;
+        }
+    }
+}
+@media screen and (min-width: 530px) {
+    .wrapper {
+        .sm-AddFuel,
+        .chartmobile {
+            display: none;
+        }
+        .chartdesktop,
+        .lg-AddFuel {
+            display: flex;
+        }
+    }
+}
+@media (max-width: 659px) {
+    .svg--lg {
+        display: none;
+    }
+}
+@media screen and (min-width: 660px) {
+    .wrapper {
+        .svg--sm {
+            display: none
+        }
+        .raceSplits {
+            .splitbtns {
+                .tab {
+                    font-size: 18px;
+                    max-width: 125px;
+                }
+            }
+        }
+        .row,
+        .chartrow {
+            .block,
+            .block-food {
+                span,
+                h2,
+                .time {
+                    font-size: 21px;
+                }
+                .time {
+                    line-height: 21px;
+                }
+                p,
+                li {
+                    font-size: 19px;
+                }
+            }
+        }
+    }
+}
