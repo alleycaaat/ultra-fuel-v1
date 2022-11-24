@@ -24,3 +24,5 @@ yarn-error.log*
 
 .env
 Hours.js
+# Local Netlify folder
+.netlify
