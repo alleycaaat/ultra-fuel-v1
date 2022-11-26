@@ -796,7 +796,7 @@ function App() {
                     <p className='last'>
                         Full code on{' '}
                         <a
-                            href='https://github.com/alleycaaat'
+                            href='https://github.com/alleycaaat/ultra-fuel'
                             target='_blank'
                             rel='noreferrer'
                         >
