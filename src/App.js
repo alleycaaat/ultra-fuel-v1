@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { FaPlusCircle } from 'react-icons/fa';
-import { BiLinkExternal } from 'react-icons/bi'
+import { BiLinkExternal } from 'react-icons/bi';
+
 import AddFuel from './components/AddFuel';
 import Morning from './components/raceSplits/Morning';
 import Afternoon from './components/raceSplits/Afternoon';
@@ -27,6 +28,7 @@ function App() {
     const [keys, setKeys] = useState();
     const [log, setLog] = useState();
     const [message, setMessage] = useState();
+
     const [soloHr, setSoloHr] = useState({
         hrLog: '',
         clock: '',
@@ -35,41 +37,41 @@ function App() {
 
     const loadFood = async () => {
         await api
-        .getfuel()
-        .then((fuel) => {
-            let fuelList = [];
-            fuel.map((fuels, i) => {
-                fuelList.push(fuel[i].data);
-                return fuelList;
-            });
-            setFuel(fuelList);
-        })
-        .catch((err) => {
+            .getfuel()
+            .then((fuel) => {
+                let fuelList = [];
+                fuel.map((fuels, i) => {
+                    fuelList.push(fuel[i].data);
+                    return fuelList;
+                });
+                setFuel(fuelList);
+            })
+            .catch((err) => {
                 console.log('loadFood API error', err);
             });
     };
 
     const loadHours = async () => {
         await api
-        .gethours()
-        .then((hours) => {
-            let hourArr = [];
-            let hourKey = [];
-        
-            hours.map((hour, i) => {
-                const key = getId(hour);
-                hourKey.push(key);
-                return hourKey;
-            });
-            setKeys(hourKey);
-            hours.map((hour, i) => {
-                hourArr.push(hours[i].data);
-                return hourArr;
-            });
-            setLoading(false);
-            setHourLog(hourArr);
-        })
-        .catch((err) => {
+            .gethours()
+            .then((hours) => {
+                let hourArr = [];
+                let hourKey = [];
+
+                hours.map((hour, i) => {
+                    const key = getId(hour);
+                    hourKey.push(key);
+                    return hourKey;
+                });
+                setKeys(hourKey);
+                hours.map((hour, i) => {
+                    hourArr.push(hours[i].data);
+                    return hourArr;
+                });
+                setLoading(false);
+                setHourLog(hourArr);
+            })
+            .catch((err) => {
                 console.log('loadHours API error', err);
             });
     };
@@ -89,8 +91,8 @@ function App() {
 
     useEffect(() => {
         const resetMsg = setTimeout(() => setMessage(''), 3000);
-        return () => clearTimeout(resetMsg)
-    })
+        return () => clearTimeout(resetMsg);
+    });
 
     //handles solorHr which displays an individual hour based
     //on clicking a button in raceSplits
@@ -215,14 +217,14 @@ function App() {
             id = keys[data.hour],
             waterLogged;
         let waterLog =
-                oldHour[0].water === 0
-                    ? parseInt(data.water)
-                    : parseInt(oldHour[0].water) + parseInt(data.water),
+            oldHour[0].water === 0
+                ? parseInt(data.water)
+                : parseInt(oldHour[0].water) + parseInt(data.water),
             twLog =
                 oldHour[0].tailwindQty === undefined
                     ? data.tailwind
                     : parseInt(oldHour[0].tailwindQty) +
-                      parseInt(data.tailwind),
+                    parseInt(data.tailwind),
             old = oldHour[0];
 
         waterLogged = {
@@ -286,7 +288,7 @@ function App() {
                 servings: old.servings,
                 tailwindQty: old.tailwindQty,
             };
-
+        console.log('prevHour:', prevHourLog);
         //if only water is being removed, save prevHourLog
         //because the water quantity has been replaced
         if (sum === 0) {
@@ -334,7 +336,7 @@ function App() {
             modFoodList = [],
             newServings = [],
             subtract;
-
+        console.log('remove:', remove);
         remove.map((food, i) => {
             //if the new quantities don't match the amount being removed and the servings don't match
             //aka if there will be servings left to display
@@ -354,7 +356,8 @@ function App() {
             if (subtract > 0) {
                 newServings.push(subtract);
             }
-
+            console.log('CONCAT:', Object.keys(remove[i])
+                .concat(Object.keys(prevHourLog)));
             //if changes need to be made
             if (changedQty[i] !== 0) {
                 //concat the object keys of the nutri. info of the food to be removed and the previous log
@@ -373,11 +376,17 @@ function App() {
                         return obj;
                     }, {});
             }
+            console.log('removeAmts:', removeAmts);
+            console.log('prevHour:', prevHourLog);
             return removeAmts;
         });
         if (modFoodList.length === 0) {
-            modFoodList = ''
-            newServings = 0}
+            modFoodList = '';
+            newServings = 0;
+        }
+
+        console.log('removeAmts:', removeAmts);
+        console.log('prevHour:', prevHourLog);
         let newHour = {
             hour: hour,
             water: waterAmt,
@@ -391,7 +400,7 @@ function App() {
             servings: newServings,
             tailwindQty: old.tailwindQty,
         };
-        
+
         if (twQty === prevHourLog.tailwindQty) {
             console.log('no trailwind removed');
             saveAPI(id, newHour);
@@ -423,7 +432,7 @@ function App() {
         var newHour = fuel.filter((o) => {
             return o.name.includes(data.name);
         });
-        
+
         //get the previous hour log
         let oldHour = [hourLog[data.hour]],
             id = keys[data.hour],
@@ -447,9 +456,9 @@ function App() {
             food = data.name;
 
         let waterLog =
-                data.water === undefined
-                    ? old.water
-                    : old.water + parseInt(data.water),
+            data.water === undefined
+                ? old.water
+                : old.water + parseInt(data.water),
             foodList =
                 orgFood.length <= 0 ? [food] : [...oldHour[0].food, food],
             foodQty =
@@ -511,13 +520,13 @@ function App() {
     const saveAPI = async (id, data) => {
         setLoading(true);
         setSoloHr({ hrLog: '', clock: '' });
-        setUpdatedHour([data])
+        setUpdatedHour([data]);
         setActive('');
-        
+
         await api
             .edit(id, data)
             .then((res) => {
-                console.log('save API response', res)
+                console.log('save API response', res);
                 loadHours();
             })
             .catch((err) => {
@@ -581,7 +590,7 @@ function App() {
                         <FaPlusCircle aria-hidden='true' />
                     </button>
                 </div>
-                
+
                 <div className='splitbtns'>
                     <Afternoon hrs={afternoonHrs} setHr={setHr} />
                     <button
@@ -612,7 +621,7 @@ function App() {
                     >
                         Morning Hours
                     </button>
-                
+
                     <button
                         className='split'
                         aria-expanded={active === 'AfternoonChart' ? 'true' : 'false'}
@@ -628,7 +637,7 @@ function App() {
                         Evening Hours
                     </button>
                 </div>
-                
+
             </div>
             {fuelGuide === true && (
                 <div className='fuel-guide' aria-expanded={fuelGuide === true ? 'true' : 'false'}>
@@ -756,16 +765,16 @@ function App() {
                         rel='noreferrer'
                     >
                         AC Hulslander
-                        <BiLinkExternal aria-hidden='true' className='footericons' alt='external link'/>
+                        <BiLinkExternal aria-hidden='true' className='footericons' alt='external link' />
                     </a>{' '}
                     as a means to keep track of nutrition and hydration during an
                     ultramarathon.{' '}
-                    { /* the checkbox doesn't display, so the label acts as the clickable element.  it's wrapped in a button so keyboard users can access it */ }
+                    { /* the checkbox doesn't display, so the label acts as the clickable element.  it's wrapped in a button so keyboard users can access it */}
                     <button>
-                    {/* 17 Nov 2022 - htmlFor throws an error, 'React does not recognize the htmlFor prop on an element...' changing to a lowercase F also throws an error, 'Did you mean htmlFor?' so, y'know. */}
-                    <label htmlFor='toggle'>
-                        {readMore ? 'Show less...' : 'Read more...'}
-                    </label>
+                        {/* 17 Nov 2022 - htmlFor throws an error, 'React does not recognize the htmlFor prop on an element...' changing to a lowercase F also throws an error, 'Did you mean htmlFor?' so, y'know. */}
+                        <label htmlFor='toggle'>
+                            {readMore ? 'Show less...' : 'Read more...'}
+                        </label>
                     </button>
                 </p>
                 <input
@@ -775,7 +784,7 @@ function App() {
                     id='toggle'
                     onClick={() => setReadMore(!readMore)}
                 />
-                <div className='footerSlide' style={{display: readMore ? 'block' : 'none'}}>
+                <div className='footerSlide' style={{ display: readMore ? 'block' : 'none' }}>
                     <p>
                         Ultra Fuel is a Jamstack web-app developed with React for
                         the front-end and SCSS for styling; it is designed from a mobile-fist perspective, is responsive, optimized and addresses several issues that could impare accessibility.
@@ -796,12 +805,12 @@ function App() {
                     <p className='last'>
                         Full code on{' '}
                         <a
-                            href='https://github.com/alleycaaat/ultra-fuel'
+                            href='https://github.com/alleycaaat'
                             target='_blank'
                             rel='noreferrer'
                         >
                             GitHub
-                            <BiLinkExternal aria-hidden='true' className='footericons' alt='external link'/>
+                            <BiLinkExternal aria-hidden='true' className='footericons' alt='external link' />
                         </a>{' '}
                         |{' '}
                         <a
@@ -810,7 +819,7 @@ function App() {
                             rel='noreferrer'
                         >
                             Contact AC
-                            <BiLinkExternal aria-hidden='true' className='footericons' alt='external link'/>
+                            <BiLinkExternal aria-hidden='true' className='footericons' alt='external link' />
                         </a>
                     </p>
                 </div>
